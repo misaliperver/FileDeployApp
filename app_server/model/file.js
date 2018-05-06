@@ -8,7 +8,8 @@ var fileSchema = new Schema({
         filename: String,
         filedelete: String,
         uzantisi:String,
-        userid: String
+        userid: String,
+        downloaded: Number
 }, {collection: 'upload'});
 
 

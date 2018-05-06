@@ -41,11 +41,11 @@
                 <h5 class="card-title"><%=_files[i].filename%></h5>
                 <hr>
                 <div class="row">
-                    <div class="col-2"><img src="img/logo.png"/></div>
+                  <!--  <div class="col-2"><img src="img/logo.png"/></div> -->
                     <div class="col-10">
                         <p class="card-text">
-                            <% if(_files[i].uzantisi=='PNG' || _files[i].uzantisi=='jpg'){%>
-                            <img class="img-thumbnail" style="width: 50px" src=/uploads/<%=_files[i]._id%>.<%=_files[i].uzantisi%> />
+                            <% if(_files[i].uzantisi=='PNG'|| _files[i].uzantisi=='png' ||  _files[i].uzantisi=='jpg'){%>
+                            <img class="img-thumbnail" style="width: 60px" src=/uploads/<%=_files[i]._id%>.<%=_files[i].uzantisi%> />
                             <a>Resim Dosyası</a>
                             <%}else{%>
                                 <strong><%=_files[i].uzantisi%> dosyası</strong>
@@ -53,7 +53,8 @@
                         </p></div>
                 </div>
                 <hr>
-                <div style="text-align: center"><a href="/down/<%=_files[i]._id%>"+ class="btn btn-primary">Download</a></div>
+
+                <div id="buttonDown" style="text-align: center"><a href="/down/<%=_files[i]._id%>"+ class="btn btn-primary">Download <span class="badge badge-light"><%=_files[i].downloaded%></span></a></div>
             </div>
         </div>
        <% if(i%3==2){%>

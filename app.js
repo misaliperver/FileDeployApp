@@ -43,7 +43,9 @@ app.get('/',function(req,res){
   });
 });
 
-  
+app.get('/Kullanimsartlari', function(req, res) {
+  res.render('Kullanimsartlari');
+});
 
 app.get('/:id', function(req, res) {
   var _idx = req.params.id;
@@ -58,7 +60,7 @@ app.get('/:id', function(req, res) {
         if(xfile.filedelete == deletefile){
           fs.unlink(__dirname + '/public/uploads/' + findfile + '.' + xfile.uzantisi);
           xfile.remove();
-          res.send('Silindi');
+          res.render('bildirim',{'_bildirim':'Silindi!'});
         }else{  res.render('bildirim',{'_bildirim':'Silme Kodunuz Yanlış!'});  }
       }else{  res.render('bildirim',{'_bildirim':'Böyle Bir Dosya Yok!'});  }
     
@@ -81,7 +83,8 @@ app.post('/upload',function(req,res){
       filename: name,
       filedelete: randomstring.generate(7),
       uzantisi:getFileExtension(name),
-      userid: 'defaultID'
+      userid: 'defaultID',
+      downloaded: 0
     });
     dosyaEkle.save(function(err){
         if(err){
@@ -116,14 +119,19 @@ app.get("/down/:id", function(req,res) {
   var _idx = req.params.id;
   if(_idx.length == 24){
     var findfile = _idx.substring(0,24);
+    
     Files.findOne({_id: findfile}, function (err, xfile) {
       //console.log('finOne içine girdi');
+      Files.findOneAndUpdate({_id: findfile}, {$set:{downloaded:xfile.downloaded+1}}, {new: true}, function(err, doc){
+        if(err){console.log("Something wrong when updating data!"); }
+      });
       if(xfile != null){
         var filepath = __dirname + '/public/uploads/' + findfile + '.' + xfile.uzantisi;
         res.download(filepath);
       }else{  res.render('bildirim',{'_bildirim':'Böyle Bir Dosya Yok!'});  }
     
     });
+    
   }
   else{  res.render('bildirim',{'_bildirim':'Erişim İzniniz Yok!'});  }
 });
