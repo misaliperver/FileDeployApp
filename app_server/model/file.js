@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 var fileSchema = new Schema({
         filename: String,
         filedelete: String,
+        uzantisi:String,
         userid: String
 }, {collection: 'upload'});
 

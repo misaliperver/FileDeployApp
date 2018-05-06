@@ -1,0 +1,65 @@
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><img src="img/logo.png"/>Hadi Bakalım!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Kapat">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="fileupload" action="upload" method="post" enctype="multipart/form-data">
+                <h1>Dosya Ekle</h1>
+                <input type="file" name="upfile" value="">
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Dosya Yükle
+        </button>
+    </div>
+       
+            
+    <% for(var i=0; i<_files.length; i++) {%>
+       <% if(i%3==0){%>
+        <div class="row">
+       <%}%>
+        <div id=<%=_files[i]._id%> class="cardseysi card col-4" style="min-width: 15rem">
+            <span style="font-size:36px;" class="badge badge-success"></span>
+            <div class="card-body">
+                <h5 class="card-title"><%=_files[i].filename%></h5>
+                <hr>
+                <div class="row">
+                    <div class="col-2"><img src="img/logo.png"/></div>
+                    <div class="col-10">
+                        <p class="card-text">
+                            <% if(_files[i].uzantisi=='PNG' || _files[i].uzantisi=='jpg'){%>
+                            <img class="img-thumbnail" style="width: 50px" src=/uploads/<%=_files[i]._id%>.<%=_files[i].uzantisi%> />
+                            <a>Resim Dosyası</a>
+                            <%}else{%>
+                                <strong><%=_files[i].uzantisi%> dosyası</strong>
+                            <%}%>
+                        </p></div>
+                </div>
+                <hr>
+                <div style="text-align: center"><a href="/down/<%=_files[i]._id%>"+ class="btn btn-primary">Download</a></div>
+            </div>
+        </div>
+       <% if(i%3==2){%>
+       </div>
+       <%}%>
+    <%}%>
+</div>
+  
+   
